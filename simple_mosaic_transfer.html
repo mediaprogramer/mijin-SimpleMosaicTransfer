@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>mijin simple wallet</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/x64-core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha3.js"></script>
+<script src="mosaic_transfer.js"></script>
+<script src="nacl-fast.js"></script>
+<script src="KeyPair.js"></script>
+<script>
+
+//Prepare_001
+var SENDER_PRIVATE_KEY = '';	//送信元の秘密鍵
+var SENDER_PUBLIC_KEY = ''; 	//送信先公開鍵
+var RECIPIENT_ADDRESS = '';								//送信先アドレス
+
+//送金API URL
+var URL_TRANSACTION_ANNOUNCE = "http://xx.xxx.xxx.xx:7895/transaction/announce";
+
+//モザイク定義
+var MOSAIC_INFO = {'name': 'bar','namespaceId': 'foo'}; //MOSAIC送信情報
+var MOSAIC_SUPPLY = 100000000;	// モザイクの供給量
+var MOSAIC_DIVISIBILITY = 2;	//モザイク小数桁数
+var SEND_QUANTITY = 1;			//送信量
+var SEND_MULTIPLIER = 1;		//送信セット数
+
+$(function(){
+	function sendRequest(){
+		var result = confirm("Mosaicを送信します。よろしいですか？");
+		if(result){
+			mosaicTransferRequest().done(
+			function(data){
+				console.log(data);
+			});
+		}
+	}
+	$("#btnReset").click(function(){sendRequest();return false;});
+});
+	
+</script>
+</head>
+<body>
+
+<h1>MOSAIC送信サンプル</h1>
+<button id="btnReset">送信</button>
+
+</body>
+</html>
